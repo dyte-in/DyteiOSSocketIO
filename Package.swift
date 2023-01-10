@@ -18,7 +18,7 @@ let package = Package(
     targets: [
             .binaryTarget(
                 name: "SocketIO",
-                url: "https://github.com/YOUR_ORG/star-wars-kit/releases/download/1.0.0-alpha.1/StarWarsKit.xcframework.zip",
+                url: "https://github.com/dyte-in/DyteiOSSocketIO/archive/refs/tags/0.0.2.zip",
                 checksum: "f8081c97609a0b11271f8b2474cd8ec25ae84a5a7d2a1a4af5189459f52eb29f"
             ),
         ]

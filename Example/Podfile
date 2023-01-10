@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '11.0'
+
+target 'SocketIO_Example' do
+  pod 'SocketIO', :path => '../'
+
+  target 'SocketIO_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

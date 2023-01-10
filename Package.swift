@@ -9,7 +9,7 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "DyteiOSSocketIO",
-            targets: ["DyteiOSSocketIO"]),
+            targets: ["SocketIO"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -19,7 +19,7 @@ let package = Package(
             .binaryTarget(
                 name: "SocketIO",
                 url: "https://github.com/dyte-in/DyteiOSSocketIO/archive/refs/tags/0.0.2.zip",
-                checksum: "f8081c97609a0b11271f8b2474cd8ec25ae84a5a7d2a1a4af5189459f52eb29f"
+                checksum: "370b998a93a9f753ad370cdd1356fa32fa45c892cb9496a2fdf6933f1946ceef"
             ),
         ]
 )

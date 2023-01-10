@@ -1,0 +1,54 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : false,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98e641d7c6ef82ce2ddfb286372816043e"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e988af5d8e2b585e86869bbfb011a6030fa"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e987256659495914ca7af226cabaca1fbb3"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e989eef64033d2a36546e801665ce04331a"
+    }
+  ],
+  "containerPath" : "/Users/shaunak/Documents/GitHub/DyteiOSSocketIO/Example/Pods/Pods.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "",
+      "buildProductsPath" : "",
+      "derivedDataPath" : "/Users/shaunak/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/shaunak/Library/Developer/Xcode/DerivedData/Pods-eqtjcsqefgxngmgwgmgzjhplawba/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/shaunak/Library/Developer/Xcode/DerivedData/Pods-eqtjcsqefgxngmgwgmgzjhplawba/Index.noindex/PrecompiledHeaders",
+      "pchPath" : ""
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : true,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : false
+}

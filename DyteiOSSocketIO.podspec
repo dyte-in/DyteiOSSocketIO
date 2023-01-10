@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'SocketIO'
+  s.name             = 'DyteiOSSocketIO'
   s.version          = '0.0.1'
   s.summary          = 'Dyte SocketIO'
 
@@ -20,7 +20,6 @@ Pod::Spec.new do |s|
   s.description      = "SocketIO implementation for Dyte"
 
   s.homepage         = 'https://docs.dyte.io/'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Dyte' => 'dev@dyte.io' }
   s.source           = { :git => 'https://github.com/dyte-in/DyteiOSSocketIO.git', :tag => s.version.to_s }
@@ -31,13 +30,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '11.0'
   s.swift_versions  = '4.0'
   s.source_files = 'Source/**/*'
-
-  
-  # s.resource_bundles = {
-  #   'SocketIO' => ['SocketIO/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Starscream', '~> 4.0.4'
 end

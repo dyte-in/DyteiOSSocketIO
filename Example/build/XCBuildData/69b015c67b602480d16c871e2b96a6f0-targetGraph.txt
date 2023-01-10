@@ -1,0 +1,9 @@
+Target dependency graph (4 targets)
+Starscream in Pods, no dependencies
+SocketIO in Pods, depends on:
+Starscream in Pods (explicit)
+Pods-SocketIO_Example in Pods, depends on:
+SocketIO in Pods (explicit)
+Starscream in Pods (explicit)
+Pods-SocketIO_Tests in Pods, depends on:
+Pods-SocketIO_Example in Pods (explicit)

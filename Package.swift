@@ -12,7 +12,9 @@ let package = Package(
             targets: ["DyteiOSSocketIO"]
         )
     ],
-    dependencies: [],
+    dependencies: [
+            .package(url: "https://github.com/daltoniam/Starscream", .upToNextMinor(from: "4.0.0")),
+        ],
     targets: [
         .target(
             name: "DyteiOSSocketIO",

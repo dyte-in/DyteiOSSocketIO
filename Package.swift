@@ -1,25 +1,33 @@
-// swift-tools-version: 5.7
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-
+// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
     name: "DyteiOSSocketIO",
+    platforms: [
+        .iOS(.v13)
+    ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "SocketIO",
-            targets: ["SocketIO"]),
+            name: "DyteiOSSocketIO",
+            targets: ["DyteiOSSocketIO"]
+        )
     ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-    ],
+    dependencies: [],
     targets: [
-            .binaryTarget(
-                name: "SocketIO",
-                url: "https://github.com/dyte-in/DyteiOSSocketIO/archive/refs/tags/0.0.2.zip",
-                checksum: "370b998a93a9f753ad370cdd1356fa32fa45c892cb9496a2fdf6933f1946ceef"
-            ),
-        ]
+        .target(
+            name: "DyteiOSSocketIO",
+            dependencies: ["SocketIO"],
+            path: "Sources"
+        ),
+        .target(
+            name: "SocketIO",
+            dependencies: [],
+            path: "Source/SocketIO" // Adjust the path to your SocketIO target
+        ),
+        .testTarget(
+            name: "DyteiOSSocketIOTests",
+            dependencies: ["DyteiOSSocketIO"],
+            path: "Tests"
+        )
+    ]
 )

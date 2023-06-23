@@ -1,0 +1,683 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name DyteiOSSocketIO
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Dispatch
+import Foundation
+import Starscream
+import Swift
+import _Concurrency
+import _StringProcessing
+@objc open class SocketEngine : ObjectiveC.NSObject, Starscream.WebSocketDelegate, Foundation.URLSessionDelegate, DyteiOSSocketIO.SocketEnginePollable, DyteiOSSocketIO.SocketEngineWebsocket, DyteiOSSocketIO.ConfigSettable {
+  final public let engineQueue: Dispatch.DispatchQueue
+  public var connectParams: [Swift.String : Any]? {
+    get
+    set
+  }
+  public var extraHeaders: [Swift.String : Swift.String]?
+  public var postWait: [DyteiOSSocketIO.Post]
+  public var waitingForPoll: Swift.Bool
+  public var waitingForPost: Swift.Bool
+  public var closed: Swift.Bool {
+    get
+  }
+  public var compress: Swift.Bool {
+    get
+  }
+  public var connected: Swift.Bool {
+    get
+  }
+  public var cookies: [Foundation.HTTPCookie]? {
+    get
+  }
+  public var fastUpgrade: Swift.Bool {
+    get
+  }
+  public var forcePolling: Swift.Bool {
+    get
+  }
+  public var forceWebsockets: Swift.Bool {
+    get
+  }
+  public var invalidated: Swift.Bool {
+    get
+  }
+  public var polling: Swift.Bool {
+    get
+  }
+  public var probing: Swift.Bool {
+    get
+  }
+  public var session: Foundation.URLSession? {
+    get
+  }
+  public var sid: Swift.String {
+    get
+  }
+  public var socketPath: Swift.String {
+    get
+  }
+  public var urlPolling: Foundation.URL {
+    get
+  }
+  public var urlWebSocket: Foundation.URL {
+    get
+  }
+  public var version: DyteiOSSocketIO.SocketIOVersion {
+    get
+  }
+  @available(*, deprecated, message: "No longer needed, if we're not polling, then we must be doing websockets")
+  public var websocket: Swift.Bool {
+    get
+  }
+  public var enableSOCKSProxy: Swift.Bool {
+    get
+  }
+  public var ws: Starscream.WebSocket? {
+    get
+  }
+  public var wsConnected: Swift.Bool {
+    get
+  }
+  weak public var client: DyteiOSSocketIO.SocketEngineClient?
+  public init(client: DyteiOSSocketIO.SocketEngineClient, url: Foundation.URL, config: DyteiOSSocketIO.SocketIOClientConfiguration)
+  required convenience public init(client: DyteiOSSocketIO.SocketEngineClient, url: Foundation.URL, options: [Swift.String : Any]?)
+  @objc deinit
+  open func connect()
+  open func didError(reason: Swift.String)
+  open func disconnect(reason: Swift.String)
+  open func doFastUpgrade()
+  open func flushWaitingForPostToWebSocket()
+  open func parseEngineData(_ data: Foundation.Data)
+  open func parseEngineMessage(_ message: Swift.String)
+  open func setConfigs(_ config: DyteiOSSocketIO.SocketIOClientConfiguration)
+  open func write(_ msg: Swift.String, withType type: DyteiOSSocketIO.SocketEnginePacketType, withData data: [Foundation.Data], completion: (() -> ())? = nil)
+}
+extension DyteiOSSocketIO.SocketEngine {
+  public func URLSession(session: Foundation.URLSession, didBecomeInvalidWithError error: Foundation.NSError?)
+}
+extension DyteiOSSocketIO.SocketEngine {
+  public func didReceive(event: Starscream.WebSocketEvent, client _: Starscream.WebSocket)
+}
+@objc public enum SocketIoTransport : Swift.Int {
+  case websocket
+  case polling
+  case undefined
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum SocketEvent : Swift.Int {
+  case connect = 1
+  case connecting
+  case disconnect
+  case error
+  case message
+  case reconnect
+  case reconnectAttempt
+  case ping
+  case pong
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class SocketIo : ObjectiveC.NSObject {
+  @objc public init(endpoint: Swift.String, queryParams: [Swift.String : Any]?, transport: DyteiOSSocketIO.SocketIoTransport)
+  @objc public func connect()
+  @objc public func disconnect()
+  @objc public func ackCall(data: Swift.Array<Any>, ack: Swift.String)
+  @objc public func isConnected() -> Swift.Bool
+  @objc public func onCustom(event: Swift.String, action: @escaping (Swift.Array<Any>) -> Swift.Void)
+  @objc public func on(socketEvent: DyteiOSSocketIO.SocketEvent, action: @escaping DyteiOSSocketIO.NormalCallback)
+  @objc public func emit(event: Swift.String, data: Swift.Array<Any>)
+  @objc public func emitAck(event: Swift.String, data: Swift.String, callback: @escaping (Swift.Array<Any>) -> ())
+  @objc public func emit(event: Swift.String, string: Swift.String)
+  @objc deinit
+}
+public protocol SocketEngineSpec : AnyObject {
+  var client: DyteiOSSocketIO.SocketEngineClient? { get set }
+  var closed: Swift.Bool { get }
+  var compress: Swift.Bool { get }
+  var connected: Swift.Bool { get }
+  var connectParams: [Swift.String : Any]? { get set }
+  var cookies: [Foundation.HTTPCookie]? { get }
+  var engineQueue: Dispatch.DispatchQueue { get }
+  var extraHeaders: [Swift.String : Swift.String]? { get set }
+  var fastUpgrade: Swift.Bool { get }
+  var forcePolling: Swift.Bool { get }
+  var forceWebsockets: Swift.Bool { get }
+  var polling: Swift.Bool { get }
+  var probing: Swift.Bool { get }
+  var sid: Swift.String { get }
+  var socketPath: Swift.String { get }
+  var urlPolling: Foundation.URL { get }
+  var urlWebSocket: Foundation.URL { get }
+  var version: DyteiOSSocketIO.SocketIOVersion { get }
+  @available(*, deprecated, message: "No longer needed, if we're not polling, then we must be doing websockets")
+  var websocket: Swift.Bool { get }
+  var ws: Starscream.WebSocket? { get }
+  init(client: DyteiOSSocketIO.SocketEngineClient, url: Foundation.URL, options: [Swift.String : Any]?)
+  func connect()
+  func didError(reason: Swift.String)
+  func disconnect(reason: Swift.String)
+  func doFastUpgrade()
+  func flushWaitingForPostToWebSocket()
+  func parseEngineData(_ data: Foundation.Data)
+  func parseEngineMessage(_ message: Swift.String)
+  func write(_ msg: Swift.String, withType type: DyteiOSSocketIO.SocketEnginePacketType, withData data: [Foundation.Data], completion: (() -> ())?)
+}
+@objc public protocol SocketEngineClient {
+  @objc func engineDidError(reason: Swift.String)
+  @objc func engineDidClose(reason: Swift.String)
+  @objc func engineDidOpen(reason: Swift.String)
+  @objc func engineDidReceivePing()
+  @objc func engineDidReceivePong()
+  @objc func engineDidSendPing()
+  @objc func engineDidSendPong()
+  @objc func parseEngineMessage(_ msg: Swift.String)
+  @objc func parseEngineBinaryData(_ data: Foundation.Data)
+  @objc func engineDidWebsocketUpgrade(headers: [Swift.String : Swift.String])
+}
+public protocol SocketEnginePollable : DyteiOSSocketIO.SocketEngineSpec {
+  var invalidated: Swift.Bool { get }
+  var postWait: [DyteiOSSocketIO.Post] { get set }
+  var session: Foundation.URLSession? { get }
+  var waitingForPoll: Swift.Bool { get set }
+  var waitingForPost: Swift.Bool { get set }
+  func doPoll()
+  func sendPollMessage(_ message: Swift.String, withType type: DyteiOSSocketIO.SocketEnginePacketType, withData datas: [Foundation.Data], completion: (() -> ())?)
+  func stopPolling()
+}
+extension DyteiOSSocketIO.SocketEnginePollable {
+  public func doPoll()
+  public func sendPollMessage(_ message: Swift.String, withType type: DyteiOSSocketIO.SocketEnginePacketType, withData datas: [Foundation.Data], completion: (() -> ())? = nil)
+  public func stopPolling()
+}
+public protocol SocketEngineWebsocket : DyteiOSSocketIO.SocketEngineSpec {
+  var wsConnected: Swift.Bool { get }
+  func sendWebSocketMessage(_ str: Swift.String, withType type: DyteiOSSocketIO.SocketEnginePacketType, withData datas: [Foundation.Data], completion: (() -> ())?)
+}
+extension DyteiOSSocketIO.SocketEngineWebsocket {
+  public func sendWebSocketMessage(_ str: Swift.String, withType type: DyteiOSSocketIO.SocketEnginePacketType, withData data: [Foundation.Data], completion: (() -> ())?)
+}
+@objc public enum SocketEnginePacketType : Swift.Int {
+  case open
+  case close
+  case ping
+  case pong
+  case message
+  case upgrade
+  case noop
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc final public class SocketAckEmitter : ObjectiveC.NSObject {
+  @objc final public var rawEmitView: DyteiOSSocketIO.SocketRawAckView {
+    @objc get
+  }
+  final public var expected: Swift.Bool {
+    get
+  }
+  public init(socket: DyteiOSSocketIO.SocketIOClient, ackNum: Swift.Int)
+  final public func with(_ items: DyteiOSSocketIO.SocketData...)
+  @objc final public func with(_ items: [Any])
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class OnAckCallback : ObjectiveC.NSObject {
+  @objc deinit
+  @objc final public func timingOut(after seconds: Swift.Double, callback: @escaping DyteiOSSocketIO.AckCallback)
+}
+public enum SocketAckStatus : Swift.String {
+  case noAck
+  public static func == (lhs: Swift.String, rhs: DyteiOSSocketIO.SocketAckStatus) -> Swift.Bool
+  public static func == (lhs: DyteiOSSocketIO.SocketAckStatus, rhs: Swift.String) -> Swift.Bool
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers final public class SocketAnyEvent : ObjectiveC.NSObject {
+  @objc final public let event: Swift.String
+  @objc final public let items: [Any]?
+  @objc override final public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc open class SocketIOClient : ObjectiveC.NSObject, DyteiOSSocketIO.SocketIOClientSpec {
+  final public let nsp: Swift.String
+  public var anyHandler: ((DyteiOSSocketIO.SocketAnyEvent) -> ())? {
+    get
+  }
+  public var handlers: [DyteiOSSocketIO.SocketEventHandler] {
+    get
+  }
+  weak public var manager: DyteiOSSocketIO.SocketManagerSpec? {
+    get
+  }
+  public var rawEmitView: DyteiOSSocketIO.SocketRawView {
+    get
+  }
+  public var status: DyteiOSSocketIO.SocketIOStatus {
+    get
+  }
+  public var sid: Swift.String? {
+    get
+  }
+  public init(manager: DyteiOSSocketIO.SocketManagerSpec, nsp: Swift.String)
+  @objc deinit
+  open func connect(withPayload payload: [Swift.String : Any]? = nil)
+  open func connect(withPayload payload: [Swift.String : Any]? = nil, timeoutAfter: Swift.Double, withHandler handler: (() -> ())?)
+  open func didConnect(toNamespace namespace: Swift.String, payload: [Swift.String : Any]?)
+  open func didDisconnect(reason: Swift.String)
+  open func disconnect()
+  open func emit(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData..., completion: (() -> ())? = nil)
+  open func emit(_ event: Swift.String, with items: [DyteiOSSocketIO.SocketData], completion: (() -> ())?)
+  open func emitWithAck(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData...) -> DyteiOSSocketIO.OnAckCallback
+  open func emitWithAck(_ event: Swift.String, with items: [DyteiOSSocketIO.SocketData]) -> DyteiOSSocketIO.OnAckCallback
+  open func emitAck(_ ack: Swift.Int, with items: [Any])
+  open func handleAck(_ ack: Swift.Int, data: [Any])
+  open func handleClientEvent(_ event: DyteiOSSocketIO.SocketClientEvent, data: [Any])
+  open func handleEvent(_ event: Swift.String, data: [Any], isInternalMessage: Swift.Bool, withAck ack: Swift.Int = -1)
+  open func handlePacket(_ packet: DyteiOSSocketIO.SocketPacket)
+  open func leaveNamespace()
+  open func joinNamespace(withPayload payload: [Swift.String : Any]? = nil)
+  open func off(clientEvent event: DyteiOSSocketIO.SocketClientEvent)
+  open func off(_ event: Swift.String)
+  open func off(id: Foundation.UUID)
+  @discardableResult
+  open func on(_ event: Swift.String, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  @discardableResult
+  open func on(clientEvent event: DyteiOSSocketIO.SocketClientEvent, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  @discardableResult
+  open func once(clientEvent event: DyteiOSSocketIO.SocketClientEvent, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  @discardableResult
+  open func once(_ event: Swift.String, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  open func onAny(_ handler: @escaping (DyteiOSSocketIO.SocketAnyEvent) -> ())
+  @available(*, unavailable, message: "Call the manager's reconnect method")
+  open func reconnect()
+  open func removeAllHandlers()
+  open func setReconnecting(reason: Swift.String)
+}
+public struct SocketEventHandler {
+  public let event: Swift.String
+  public let id: Foundation.UUID
+  public let callback: DyteiOSSocketIO.NormalCallback
+  public func executeCallback(with items: [Any], withAck ack: Swift.Int, withSocket socket: DyteiOSSocketIO.SocketIOClient)
+}
+public protocol SocketIOClientSpec : AnyObject {
+  var anyHandler: ((DyteiOSSocketIO.SocketAnyEvent) -> ())? { get }
+  var handlers: [DyteiOSSocketIO.SocketEventHandler] { get }
+  var manager: DyteiOSSocketIO.SocketManagerSpec? { get }
+  var nsp: Swift.String { get }
+  var rawEmitView: DyteiOSSocketIO.SocketRawView { get }
+  var sid: Swift.String? { get }
+  var status: DyteiOSSocketIO.SocketIOStatus { get }
+  func connect(withPayload payload: [Swift.String : Any]?)
+  func connect(withPayload payload: [Swift.String : Any]?, timeoutAfter: Swift.Double, withHandler handler: (() -> ())?)
+  func didConnect(toNamespace namespace: Swift.String, payload: [Swift.String : Any]?)
+  func didDisconnect(reason: Swift.String)
+  func didError(reason: Swift.String)
+  func disconnect()
+  func emit(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData..., completion: (() -> ())?)
+  func emit(_ event: Swift.String, with items: [DyteiOSSocketIO.SocketData], completion: (() -> ())?)
+  func emitAck(_ ack: Swift.Int, with items: [Any])
+  func emitWithAck(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData...) -> DyteiOSSocketIO.OnAckCallback
+  func emitWithAck(_ event: Swift.String, with items: [DyteiOSSocketIO.SocketData]) -> DyteiOSSocketIO.OnAckCallback
+  func handleAck(_ ack: Swift.Int, data: [Any])
+  func handleClientEvent(_ event: DyteiOSSocketIO.SocketClientEvent, data: [Any])
+  func handleEvent(_ event: Swift.String, data: [Any], isInternalMessage: Swift.Bool, withAck ack: Swift.Int)
+  func handlePacket(_ packet: DyteiOSSocketIO.SocketPacket)
+  func leaveNamespace()
+  func joinNamespace(withPayload payload: [Swift.String : Any]?)
+  func off(clientEvent event: DyteiOSSocketIO.SocketClientEvent)
+  func off(_ event: Swift.String)
+  func off(id: Foundation.UUID)
+  func on(_ event: Swift.String, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  func on(clientEvent event: DyteiOSSocketIO.SocketClientEvent, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  func once(clientEvent event: DyteiOSSocketIO.SocketClientEvent, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  func once(_ event: Swift.String, callback: @escaping DyteiOSSocketIO.NormalCallback) -> Foundation.UUID
+  func onAny(_ handler: @escaping (DyteiOSSocketIO.SocketAnyEvent) -> ())
+  func removeAllHandlers()
+  func setReconnecting(reason: Swift.String)
+}
+extension DyteiOSSocketIO.SocketIOClientSpec {
+  public func didError(reason: Swift.String)
+}
+public enum SocketClientEvent : Swift.String {
+  case connect
+  case disconnect
+  case error
+  case ping
+  case pong
+  case reconnect
+  case reconnectAttempt
+  case statusChange
+  case websocketUpgrade
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum SocketIOVersion : Swift.Int {
+  case two
+  case three
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum SocketIOClientOption {
+  case compress
+  case connectParams([Swift.String : Any])
+  case cookies([Foundation.HTTPCookie])
+  case extraHeaders([Swift.String : Swift.String])
+  case forceNew(Swift.Bool)
+  case forcePolling(Swift.Bool)
+  case forceWebsockets(Swift.Bool)
+  case enableSOCKSProxy(Swift.Bool)
+  case handleQueue(Dispatch.DispatchQueue)
+  case log(Swift.Bool)
+  case logger(DyteiOSSocketIO.SocketLogger)
+  case path(Swift.String)
+  case reconnects(Swift.Bool)
+  case reconnectAttempts(Swift.Int)
+  case reconnectWait(Swift.Int)
+  case reconnectWaitMax(Swift.Int)
+  case randomizationFactor(Swift.Double)
+  case secure(Swift.Bool)
+  case security(Starscream.CertificatePinning)
+  case selfSigned(Swift.Bool)
+  case sessionDelegate(Foundation.URLSessionDelegate)
+  case version(DyteiOSSocketIO.SocketIOVersion)
+  public var description: Swift.String {
+    get
+  }
+  public static func == (lhs: DyteiOSSocketIO.SocketIOClientOption, rhs: DyteiOSSocketIO.SocketIOClientOption) -> Swift.Bool
+}
+@objc public enum SocketIOStatus : Swift.Int, Swift.CustomStringConvertible {
+  case notConnected
+  case disconnected
+  case connecting
+  case connected
+  public var active: Swift.Bool {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct SocketIOClientConfiguration : Swift.ExpressibleByArrayLiteral, Swift.Collection, Swift.MutableCollection {
+  public typealias Element = DyteiOSSocketIO.SocketIOClientOption
+  public typealias Index = Swift.Array<DyteiOSSocketIO.SocketIOClientOption>.Index
+  public typealias Iterator = Swift.Array<DyteiOSSocketIO.SocketIOClientOption>.Iterator
+  public typealias SubSequence = Swift.Array<DyteiOSSocketIO.SocketIOClientOption>.SubSequence
+  public var startIndex: DyteiOSSocketIO.SocketIOClientConfiguration.Index {
+    get
+  }
+  public var endIndex: DyteiOSSocketIO.SocketIOClientConfiguration.Index {
+    get
+  }
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public var count: DyteiOSSocketIO.SocketIOClientConfiguration.Index.Stride {
+    get
+  }
+  public var first: DyteiOSSocketIO.SocketIOClientConfiguration.Element? {
+    get
+  }
+  public subscript(position: DyteiOSSocketIO.SocketIOClientConfiguration.Index) -> DyteiOSSocketIO.SocketIOClientConfiguration.Element {
+    get
+    set
+  }
+  public subscript(bounds: Swift.Range<DyteiOSSocketIO.SocketIOClientConfiguration.Index>) -> DyteiOSSocketIO.SocketIOClientConfiguration.SubSequence {
+    get
+    set
+  }
+  public init(arrayLiteral elements: DyteiOSSocketIO.SocketIOClientConfiguration.Element...)
+  public func makeIterator() -> DyteiOSSocketIO.SocketIOClientConfiguration.Iterator
+  public func index(after i: DyteiOSSocketIO.SocketIOClientConfiguration.Index) -> DyteiOSSocketIO.SocketIOClientConfiguration.Index
+  public mutating func insert(_ element: DyteiOSSocketIO.SocketIOClientConfiguration.Element, replacing replace: Swift.Bool = true)
+  public typealias ArrayLiteralElement = DyteiOSSocketIO.SocketIOClientConfiguration.Element
+  public typealias Indices = Swift.DefaultIndices<DyteiOSSocketIO.SocketIOClientConfiguration>
+}
+public protocol ConfigSettable {
+  mutating func setConfigs(_ config: DyteiOSSocketIO.SocketIOClientConfiguration)
+}
+public protocol SocketData {
+  func socketRepresentation() throws -> DyteiOSSocketIO.SocketData
+}
+extension DyteiOSSocketIO.SocketData {
+  public func socketRepresentation() -> DyteiOSSocketIO.SocketData
+}
+extension Swift.Array : DyteiOSSocketIO.SocketData {
+}
+extension Swift.Bool : DyteiOSSocketIO.SocketData {
+}
+extension Swift.Dictionary : DyteiOSSocketIO.SocketData {
+}
+extension Swift.Double : DyteiOSSocketIO.SocketData {
+}
+extension Swift.Int : DyteiOSSocketIO.SocketData {
+}
+extension Foundation.NSArray : DyteiOSSocketIO.SocketData {
+}
+extension Foundation.Data : DyteiOSSocketIO.SocketData {
+}
+extension Foundation.NSData : DyteiOSSocketIO.SocketData {
+}
+extension Foundation.NSDictionary : DyteiOSSocketIO.SocketData {
+}
+extension Foundation.NSString : DyteiOSSocketIO.SocketData {
+}
+extension Foundation.NSNull : DyteiOSSocketIO.SocketData {
+}
+extension Swift.String : DyteiOSSocketIO.SocketData {
+}
+public typealias AckCallback = ([Any]) -> ()
+public typealias NormalCallback = ([Any], DyteiOSSocketIO.SocketAckEmitter) -> ()
+public typealias Post = (msg: Swift.String, completion: (() -> ())?)
+public protocol SocketLogger : AnyObject {
+  var log: Swift.Bool { get set }
+  func log(_ message: @autoclosure () -> Swift.String, type: Swift.String)
+  func error(_ message: @autoclosure () -> Swift.String, type: Swift.String)
+}
+extension DyteiOSSocketIO.SocketLogger {
+  public func log(_ message: @autoclosure () -> Swift.String, type: Swift.String)
+  public func error(_ message: @autoclosure () -> Swift.String, type: Swift.String)
+}
+public struct SocketPacket : Swift.CustomStringConvertible {
+  public let nsp: Swift.String
+  public let id: Swift.Int
+  public let type: DyteiOSSocketIO.SocketPacket.PacketType
+  public var binary: [Foundation.Data] {
+    get
+  }
+  public var data: [Any] {
+    get
+  }
+  public var args: [Any] {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public var event: Swift.String {
+    get
+  }
+  public var packetString: Swift.String {
+    get
+  }
+}
+extension DyteiOSSocketIO.SocketPacket {
+  public enum PacketType : Swift.Int {
+    case connect
+    case disconnect
+    case event
+    case ack
+    case error
+    case binaryEvent
+    case binaryAck
+    public var isBinary: Swift.Bool {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
+public protocol SocketParsable : AnyObject {
+  func parseBinaryData(_ data: Foundation.Data) -> DyteiOSSocketIO.SocketPacket?
+  func parseSocketMessage(_ message: Swift.String) -> DyteiOSSocketIO.SocketPacket?
+}
+public enum SocketParsableError : Swift.Error {
+  case invalidDataArray
+  case invalidPacket
+  case invalidPacketType
+  public static func == (a: DyteiOSSocketIO.SocketParsableError, b: DyteiOSSocketIO.SocketParsableError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol SocketDataBufferable : AnyObject {
+  var waitingPackets: [DyteiOSSocketIO.SocketPacket] { get set }
+}
+extension DyteiOSSocketIO.SocketParsable where Self : DyteiOSSocketIO.SocketDataBufferable, Self : DyteiOSSocketIO.SocketManagerSpec {
+  public func parseSocketMessage(_ message: Swift.String) -> DyteiOSSocketIO.SocketPacket?
+  public func parseBinaryData(_ data: Foundation.Data) -> DyteiOSSocketIO.SocketPacket?
+}
+@objc open class SocketManager : ObjectiveC.NSObject, DyteiOSSocketIO.SocketManagerSpec, DyteiOSSocketIO.SocketParsable, DyteiOSSocketIO.SocketDataBufferable, DyteiOSSocketIO.ConfigSettable {
+  public var defaultSocket: DyteiOSSocketIO.SocketIOClient {
+    get
+  }
+  final public let socketURL: Foundation.URL
+  public var config: DyteiOSSocketIO.SocketIOClientConfiguration {
+    get
+    set
+  }
+  public var engine: DyteiOSSocketIO.SocketEngineSpec?
+  public var forceNew: Swift.Bool
+  public var handleQueue: Dispatch.DispatchQueue
+  public var nsps: [Swift.String : DyteiOSSocketIO.SocketIOClient]
+  public var reconnects: Swift.Bool
+  public var reconnectWait: Swift.Int
+  public var reconnectWaitMax: Swift.Int
+  public var randomizationFactor: Swift.Double
+  public var status: DyteiOSSocketIO.SocketIOStatus {
+    get
+  }
+  public var version: DyteiOSSocketIO.SocketIOVersion {
+    get
+  }
+  public var waitingPackets: [DyteiOSSocketIO.SocketPacket]
+  public init(socketURL: Foundation.URL, config: DyteiOSSocketIO.SocketIOClientConfiguration = [])
+  @objc convenience public init(socketURL: Foundation.URL, config: [Swift.String : Any]?)
+  @objc deinit
+  open func connect()
+  open func connectSocket(_ socket: DyteiOSSocketIO.SocketIOClient, withPayload payload: [Swift.String : Any]? = nil)
+  open func didDisconnect(reason: Swift.String)
+  open func disconnect()
+  open func disconnectSocket(_ socket: DyteiOSSocketIO.SocketIOClient)
+  open func disconnectSocket(forNamespace nsp: Swift.String)
+  open func emitAll(clientEvent event: DyteiOSSocketIO.SocketClientEvent, data: [Any])
+  open func emitAll(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData...)
+  @objc open func engineDidClose(reason: Swift.String)
+  @objc open func engineDidError(reason: Swift.String)
+  @objc open func engineDidOpen(reason: Swift.String)
+  @objc open func engineDidReceivePing()
+  @objc open func engineDidSendPing()
+  @objc open func engineDidReceivePong()
+  @objc open func engineDidSendPong()
+  @objc open func engineDidWebsocketUpgrade(headers: [Swift.String : Swift.String])
+  @objc open func parseEngineMessage(_ msg: Swift.String)
+  @objc open func parseEngineBinaryData(_ data: Foundation.Data)
+  open func reconnect()
+  @discardableResult
+  open func removeSocket(_ socket: DyteiOSSocketIO.SocketIOClient) -> DyteiOSSocketIO.SocketIOClient?
+  open func setConfigs(_ config: DyteiOSSocketIO.SocketIOClientConfiguration)
+  open func socket(forNamespace nsp: Swift.String) -> DyteiOSSocketIO.SocketIOClient
+}
+public protocol SocketManagerSpec : DyteiOSSocketIO.SocketEngineClient {
+  var defaultSocket: DyteiOSSocketIO.SocketIOClient { get }
+  var engine: DyteiOSSocketIO.SocketEngineSpec? { get set }
+  var forceNew: Swift.Bool { get set }
+  var handleQueue: Dispatch.DispatchQueue { get set }
+  var nsps: [Swift.String : DyteiOSSocketIO.SocketIOClient] { get set }
+  var reconnects: Swift.Bool { get set }
+  var reconnectWait: Swift.Int { get set }
+  var reconnectWaitMax: Swift.Int { get set }
+  var randomizationFactor: Swift.Double { get set }
+  var socketURL: Foundation.URL { get }
+  var status: DyteiOSSocketIO.SocketIOStatus { get }
+  var version: DyteiOSSocketIO.SocketIOVersion { get }
+  func connect()
+  func connectSocket(_ socket: DyteiOSSocketIO.SocketIOClient, withPayload: [Swift.String : Any]?)
+  func didDisconnect(reason: Swift.String)
+  func disconnect()
+  func disconnectSocket(_ socket: DyteiOSSocketIO.SocketIOClient)
+  func disconnectSocket(forNamespace nsp: Swift.String)
+  func emitAll(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData...)
+  func reconnect()
+  @discardableResult
+  func removeSocket(_ socket: DyteiOSSocketIO.SocketIOClient) -> DyteiOSSocketIO.SocketIOClient?
+  func socket(forNamespace nsp: Swift.String) -> DyteiOSSocketIO.SocketIOClient
+}
+@objc @_hasMissingDesignatedInitializers final public class SocketRawView : ObjectiveC.NSObject {
+  final public func emit(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData...)
+  @objc final public func emit(_ event: Swift.String, with items: [Any])
+  final public func emitWithAck(_ event: Swift.String, _ items: DyteiOSSocketIO.SocketData...) -> DyteiOSSocketIO.OnAckCallback
+  @objc final public func emitWithAck(_ event: Swift.String, with items: [Any]) -> DyteiOSSocketIO.OnAckCallback
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers final public class SocketRawAckView : ObjectiveC.NSObject {
+  final public func with(_ items: DyteiOSSocketIO.SocketData...)
+  @objc final public func with(_ items: [Any])
+  @objc deinit
+}
+extension DyteiOSSocketIO.SocketIoTransport : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketIoTransport : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketIoTransport : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketEvent : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketEvent : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketEvent : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketEnginePacketType : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketEnginePacketType : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketEnginePacketType : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketAckStatus : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketAckStatus : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketAckStatus : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketClientEvent : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketClientEvent : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketClientEvent : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketIOVersion : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketIOVersion : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketIOVersion : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketIOClientOption : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketIOClientOption : Swift.CustomStringConvertible {}
+extension DyteiOSSocketIO.SocketIOStatus : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketIOStatus : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketIOStatus : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketPacket.PacketType : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketPacket.PacketType : Swift.Hashable {}
+extension DyteiOSSocketIO.SocketPacket.PacketType : Swift.RawRepresentable {}
+extension DyteiOSSocketIO.SocketParsableError : Swift.Equatable {}
+extension DyteiOSSocketIO.SocketParsableError : Swift.Hashable {}

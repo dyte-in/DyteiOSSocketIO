@@ -16,10 +16,7 @@ let package = Package(
             .package(url: "https://github.com/daltoniam/Starscream", .upToNextMinor(from: "4.0.0")),
         ],
     targets: [
-        .target(
-            name: "DyteiOSSocketIO",
-            dependencies: ["Starscream"],
-            path: "Source/SocketIO"
-        )
+        .binaryTarget(name: "DyteiOSSocketIO", path: "Source/DyteiOSSocketIO.xcframework.zip"),
+        .target(name: "DyteSocketIO", dependencies: ["Starscream", "DyteiOSSocketIO"], path: "Source/")
     ]
 )

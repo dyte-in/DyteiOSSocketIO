@@ -9,7 +9,7 @@ let package = Package(
     products: [
         .library(
             name: "DyteiOSSocketIO",
-            targets: ["DyteiOSSocketIO"]
+            targets: ["DyteSocketIO"]
         )
     ],
     targets: [

@@ -1,0 +1,4 @@
+framework module DyteiOSSocketIO {
+  header "DyteiOSSocketIO-Swift.h"
+  requires objc
+}

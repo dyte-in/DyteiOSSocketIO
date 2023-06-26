@@ -9,17 +9,12 @@ let package = Package(
     products: [
         .library(
             name: "DyteiOSSocketIO",
-            targets: ["DyteiOSSocketIO"]
+            targets: ["DyteSocketIO"]
         )
     ],
-    dependencies: [
-            .package(url: "https://github.com/daltoniam/Starscream", .upToNextMinor(from: "4.0.0")),
-        ],
     targets: [
-        .target(
-            name: "DyteiOSSocketIO",
-            dependencies: ["Starscream"],
-            path: "Source/SocketIO"
-        )
+        .binaryTarget(name: "DyteiOSSocketIO", path: "Source/DyteiOSSocketIO.xcframework.zip"),
+        .binaryTarget(name: "Starscream", path: "Source/Starscream.xcframework.zip"),
+        .target(name: "DyteSocketIO", dependencies: ["Starscream", "DyteiOSSocketIO"], path: "Source/")
     ]
 )

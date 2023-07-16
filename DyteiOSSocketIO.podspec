@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DyteiOSSocketIO'
-  s.version          = '0.0.6'
+  s.version          = '0.0.7'
   s.summary          = 'Dyte SocketIO'
 
 # This description is used to generate tags and improve search results.
@@ -30,5 +30,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '13.0'
   s.swift_versions  = '5.0'
   s.source_files = 'Source/**/*'
-  s.dependency 'Starscream', '~> 4.0.4'
+  s.dependency 'DyteStarscream', '~> 0.0.1'
 end

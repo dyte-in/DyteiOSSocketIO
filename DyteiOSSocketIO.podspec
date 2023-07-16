@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DyteiOSSocketIO'
-  s.version          = '0.1.5'
+  s.version          = '0.1.6'
   s.summary          = 'Dyte SocketIO'
 
 # This description is used to generate tags and improve search results.
@@ -24,11 +24,11 @@ Pod::Spec.new do |s|
   s.author           = { 'Dyte' => 'dev@dyte.io' }
   s.source           = { :git => 'https://github.com/dyte-in/DyteiOSSocketIO.git', :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/dyte_io'
-
+  s.vendored_frameworks = "DyteiOSSocketIO.xcframework"
+  s.platform = :ios
   s.ios.deployment_target = '13.0'
 
   s.ios.deployment_target = '13.0'
   s.swift_versions  = '5.0'
-  s.source_files = 'Source/**/*'
-  s.dependency 'DyteStarscream', '~> 0.0.1'
+  s.dependency 'DyteStarscream', '~> 0.0.3'
 end

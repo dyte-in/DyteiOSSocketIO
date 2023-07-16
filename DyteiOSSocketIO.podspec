@@ -27,8 +27,6 @@ Pod::Spec.new do |s|
   s.vendored_frameworks = "DyteiOSSocketIO.xcframework"
   s.platform = :ios
   s.ios.deployment_target = '13.0'
-
-  s.ios.deployment_target = '13.0'
   s.swift_versions  = '5.0'
   s.dependency 'DyteStarscream', '~> 0.0.3'
 end
